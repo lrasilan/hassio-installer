@@ -139,8 +139,8 @@ docker tag "$HASSIO_DOCKER:$HASSIO_VERSION" "$HASSIO_DOCKER:latest" > /dev/null
 ##
 # Install Hass.io Supervisor
 echo "[Info] Install supervisor startup scripts"
-curl -sL ${URL_BIN_HASSIO} > "${PREFIX}"/sbin/hassio-supervisor
-curl -sL ${URL_SERVICE_HASSIO} > "${SYSCONFDIR}"/systemd/system/hassio-supervisor.service
+curl -L ${URL_BIN_HASSIO} > "${PREFIX}"/sbin/hassio-supervisor
+curl -L ${URL_SERVICE_HASSIO} > "${SYSCONFDIR}"/systemd/system/hassio-supervisor.service
 
 sed -i "s,%%HASSIO_CONFIG%%,${CONFIG},g" "${PREFIX}"/sbin/hassio-supervisor
 sed -i -e "s,%%DOCKER_BINARY%%,${DOCKER_BINARY},g" \
@@ -156,9 +156,9 @@ systemctl enable hassio-supervisor.service
 if command -v apparmor_parser > /dev/null 2>&1; then
     echo "[Info] Install AppArmor scripts"
     mkdir -p "${DATA_SHARE}"/apparmor
-    curl -sL ${URL_BIN_APPARMOR} > "${PREFIX}"/sbin/hassio-apparmor
-    curl -sL ${URL_SERVICE_APPARMOR} > "${SYSCONFDIR}"/systemd/system/hassio-apparmor.service
-    curl -sL ${URL_APPARMOR_PROFILE} > "${DATA_SHARE}"/apparmor/hassio-supervisor
+    curl -L ${URL_BIN_APPARMOR} > "${PREFIX}"/sbin/hassio-apparmor
+    curl -L ${URL_SERVICE_APPARMOR} > "${SYSCONFDIR}"/systemd/system/hassio-apparmor.service
+    curl -L ${URL_APPARMOR_PROFILE} > "${DATA_SHARE}"/apparmor/hassio-supervisor
 
     sed -i "s,%%HASSIO_CONFIG%%,${CONFIG},g" "${PREFIX}"/sbin/hassio-apparmor
     sed -i -e "s,%%DOCKER_SERVICE%%,${DOCKER_SERVICE},g" \
